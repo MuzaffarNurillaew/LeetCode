@@ -65,4 +65,21 @@ internal class Solution
         }
         return max;
     }
+    public int AddDigits(int num)
+    {
+        string numStr = num.ToString();
+        int result = numStr[0] - '0';
+        while (numStr.Length != 1)
+        {
+            int sumOfDigits = 0;
+            foreach (char c in numStr)
+            {
+                sumOfDigits += c - '0';
+            }
+            result = sumOfDigits;
+            numStr = sumOfDigits.ToString();
+        }
+
+        return result;
+    }
 }
