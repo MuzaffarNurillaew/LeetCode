@@ -82,4 +82,58 @@ internal class Solution
 
         return result;
     }
+    public bool DigitCount(string num)
+    {
+        int len = num.Length;
+        for (int i = 0; i < len; i++)
+        {
+            int occurance = num[i] - '0';
+            char c = (char)(i + '0');
+
+            if (num.Count(ch => ch == c) != occurance)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public int RearrangeCharacters(string s, string target)
+    {
+        var targetDict = new Dictionary<char, int>();
+        foreach (char c in target)
+        {
+            if (!targetDict.TryAdd(c, 1))
+            {
+                targetDict[c]++;
+            }
+        }
+
+        var sDict = new Dictionary<char, int>();
+        foreach (char c in s)
+        {
+            if (!sDict.TryAdd(c, 1))
+            {
+                sDict[c]++;
+            }
+        }
+
+        int min = int.MaxValue;
+        foreach (var t in targetDict)
+        {
+            int countInTarget = t.Value;
+            sDict.TryGetValue(t.Key, out int countInS);
+            if (countInTarget > countInS)
+            {
+                return 0;
+            }
+            else if (countInS < min)
+            {
+                min = countInS / countInTarget;
+            }
+        }
+        
+        return min;
+    }
 }
